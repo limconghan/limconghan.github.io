@@ -1,0 +1,40 @@
+---
+---
+
+@import "jekyll-theme-minimal";
+
+ul.papers {
+  margin: 0;
+  padding: 0;
+}
+ul.papers > li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-left: 0px;
+  margin-bottom: 1em;
+
+}
+ul.papers > li:last-child {
+  margin-bottom: 0;
+}
+
+ul.papers div.title {
+  text-decoration: none;
+  border-bottom: none;
+  font-weight: 600;
+}
+
+ul.papers div.authors {
+  color: #888;
+}
+
+ul.papers div.venue
+{
+  color: #777;
+}
+
+ul.papers div.links
+{
+  color: #666;
+}

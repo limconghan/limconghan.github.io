@@ -1,0 +1,55 @@
+- title: Validating Sample Average Approximation Solutions with Negatively Dependent Batches
+  authors: Jiajie Chen, Cong Han Lim, Peter Z. G. Qian, Jeffrey T. Linderoth, Stephen J. Wright
+  venue: In submission
+  links:
+    - name: ArXiv
+      url: http://arxiv.org/abs/1404.7208
+    
+    - name: Optimization Online
+      url: http://www.optimization-online.org/DB_HTML/2014/04/4329.html
+
+- title: A Box-Constrained Approach for Hard Permutation Problems
+  authors: Cong Han Lim, Stephen J. Wright
+  venue: ICML 2016
+  links:
+    - name: ICML
+      url: http://jmlr.csail.mit.edu/proceedings/papers/v48/lim16.html
+
+
+- title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
+  authors: Cong Han Lim, Jeff Linderoth, James Luedtke
+  venue: IPCO 2016 / Journal Version in submission
+  links:
+    - name: IPCO
+      url: http://link.springer.com/chapter/10.1007/978-3-319-33461-5_23
+
+    - name: Optimization Online
+      url: http://www.optimization-online.org/DB_HTML/2015/11/5218.html
+    
+    - name: Data
+      url: http://pages.cs.wisc.edu/~conghan/concave/
+
+- title: Efficient Bregman Projections onto the Permutahedron and Related Polytopes
+  authors: Cong Han Lim, Stephen J. Wright
+  venue: AISTATS 2016 / Journal Version in preparation
+  links:
+    - name: AISTATS
+      url: http://jmlr.csail.mit.edu/proceedings/papers/v51/lim16.html 
+
+- title: Sorting Network Relaxations for Vector Permutation Problems
+  authors: Cong Han Lim, Stephen J. Wright
+  venue: NIPS 2014
+  links:
+    - name: ArXiv
+      url: http://arxiv.org/abs/1407.6609
+    
+    - name: Optimization Online
+      url: http://www.optimization-online.org/DB_HTML/2014/07/4459.html
+
+    #- name: NIPS Poster
+    #  url: temp
+
+    #- name: MATLAB code for sorting network formulation
+    #  url: temp
+
+

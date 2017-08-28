@@ -1,0 +1,17 @@
+<h2 id="publications">Publications</h2>
+
+<ul>
+{% for pub in site.data.pubs %}
+  <li>
+    <div class="title">{{ pub.title }}</div>
+    <div class="authors">{{ pub.authors }}</div>
+    <div class="venue">{{ pub.venue }}</div>
+    <div class="links">
+    {% for link in pub.links %}
+      [ <a href="{{ link.url }}">{{ link.name}}</a> ]
+    {% endfor %}
+    </div>
+  </li>
+  <br />
+{% endfor %}
+</ul>
