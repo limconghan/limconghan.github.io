@@ -1,5 +1,5 @@
 ---
-title: Cong Han Lim | University of Wisconsin-Madison
+
 ---
 
 ## Welcome to GitHub Pages
