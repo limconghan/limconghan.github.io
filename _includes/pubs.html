@@ -1,6 +1,42 @@
+<style>
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-left: 0px;
+  margin-bottom: 1em;
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+div.title {
+  text-decoration: none;
+  border-bottom: none;
+  font-weight: 600;
+}
+
+div.authors {
+  color: #888;
+}
+
+div.venue
+{
+  color: #777;
+}
+
+div.links
+{
+  color: #666;
+}
+
+</style>
+
+
 <h2 id="publications">Publications</h2>
 
-<ul>
 {% for pub in site.data.pubs %}
   <li>
     <div class="title">{{ pub.title }}</div>
@@ -12,6 +48,4 @@
     {% endfor %}
     </div>
   </li>
-  <br />
 {% endfor %}
-</ul>
