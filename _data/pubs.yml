@@ -8,6 +8,10 @@
     - name: Optimization Online
       url: http://www.optimization-online.org/DB_HTML/2014/04/4329.html
 
+- title: k-Support and Ordered Weighted Sparsity for Overlapping Groups - Hardness and Algorithms
+  authors: Cong Han Lim, Stephen J. Wright
+  venue: NIPS 2017
+  
 - title: A Box-Constrained Approach for Hard Permutation Problems
   authors: Cong Han Lim, Stephen J. Wright
   venue: ICML 2016
