@@ -12,17 +12,9 @@
   authors: Cong Han Lim, Stephen J. Wright
   venue: NIPS 2017
   
-- title: A Box-Constrained Approach for Hard Permutation Problems
-  authors: Cong Han Lim, Stephen J. Wright
-  venue: ICML 2016
-  links:
-    - name: ICML
-      url: http://jmlr.csail.mit.edu/proceedings/papers/v48/lim16.html
-
-
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
   authors: Cong Han Lim, Jeff Linderoth, James Luedtke
-  venue: IPCO 2016 / Journal Version in submission
+  venue: Mathematical Programming Series B 2017 / IPCO 2016
   links:
     - name: IPCO
       url: http://link.springer.com/chapter/10.1007/978-3-319-33461-5_23
@@ -32,6 +24,13 @@
     
     - name: Data
       url: http://pages.cs.wisc.edu/~conghan/concave/
+  
+- title: A Box-Constrained Approach for Hard Permutation Problems
+  authors: Cong Han Lim, Stephen J. Wright
+  venue: ICML 2016
+  links:
+    - name: ICML
+      url: http://jmlr.csail.mit.edu/proceedings/papers/v48/lim16.html
 
 - title: Efficient Bregman Projections onto the Permutahedron and Related Polytopes
   authors: Cong Han Lim, Stephen J. Wright
