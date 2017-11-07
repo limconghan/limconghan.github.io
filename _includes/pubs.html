@@ -1,3 +1,9 @@
+<!--
+  li:last-child {
+  margin-bottom: 0;
+}
+-->
+
 <style>
 
 li {
@@ -6,10 +12,6 @@ li {
   list-style-type: none;
   margin-left: 0px;
   margin-bottom: 1em;
-}
-
-li:last-child {
-  margin-bottom: 0;
 }
 
 div.title {
@@ -35,7 +37,7 @@ div.links
 </style>
 
 
-<h2 id="publications">Publications</h2>
+<h2 id="publications">Papers</h2>
 
 {% for pub in site.data.pubs %}
   <li>
@@ -49,6 +51,8 @@ div.links
     </div>
   </li>
 {% endfor %}
+
+<!--
 
 <h2 id="publications">Other Refereed Works</h2>
 
@@ -64,3 +68,5 @@ div.links
     </div>
   </li>
 {% endfor %}
+
+-->

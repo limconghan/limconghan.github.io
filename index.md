@@ -11,6 +11,8 @@ I obtained my PhD from the Department of Computer Sciences at
 UW-Madison, and did my undergraduate studies at University of Chicago in
 Mathematics and Computer Science.
 
+[CV](./cv20171101.pdf)
+
 {% include pubs.html %}
 
 ## Work Experience
