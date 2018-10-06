@@ -1,5 +1,12 @@
+- title: Parallelizing Subgradient Methods for the Lagrangian Dual in Stochastic Mixed-Integer Programming
+  authors: Cong Han Lim, Jeffrey Linderoth, James Luedtke, Stephen Wright
+  venue: In submission
+  links:
+    - name: Data
+      url: https://limconghan.github.io/smip/
+
 - title: Validating Sample Average Approximation Solutions with Negatively Dependent Batches
-  authors: Jiajie Chen, Cong Han Lim, Peter Z. G. Qian, Jeffrey T. Linderoth, Stephen J. Wright
+  authors: Jiajie Chen, Cong Han Lim, Peter Qian, Jeffrey Linderoth, Stephen Wright
   venue: In submission
   links:
     - name: ArXiv
@@ -13,15 +20,15 @@
   venue: NIPS 2018
 
 - title: A Distributed Quasi-Newton Algorithm for Empirical Risk Minimization with Nonsmooth Regularization
-  authors: Ching-Pei Lee, Cong Han Lim, Stephen J. Wright
-  venue: KDD 2018
+  authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
+  venue: KDD 2018 / Journal version in preparation
 
 - title: A Note on Extended Formulations for Cardinality-based Sparsity
   authors: Cong Han Lim
   venue: NIPS Optimization for Machine Learning Workshop 2017
 
 - title: k-Support and Ordered Weighted Sparsity for Overlapping Groups - Hardness and Algorithms
-  authors: Cong Han Lim, Stephen J. Wright
+  authors: Cong Han Lim, Stephen Wright
   venue: NIPS 2017
   
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
@@ -35,24 +42,24 @@
       url: http://www.optimization-online.org/DB_HTML/2015/11/5218.html
     
     - name: Data
-      url: http://pages.cs.wisc.edu/~conghan/concave/
+      url: https://limconghan.github.io/data/concave_instances.zip
   
 - title: A Box-Constrained Approach for Hard Permutation Problems
-  authors: Cong Han Lim, Stephen J. Wright
+  authors: Cong Han Lim, Stephen Wright
   venue: ICML 2016
   links:
     - name: ICML
       url: http://jmlr.csail.mit.edu/proceedings/papers/v48/lim16.html
 
 - title: Efficient Bregman Projections onto the Permutahedron and Related Polytopes
-  authors: Cong Han Lim, Stephen J. Wright
-  venue: AISTATS 2016 / Journal Version in preparation
+  authors: Cong Han Lim, Stephen Wright
+  venue: AISTATS 2016 / Journal version in preparation
   links:
     - name: AISTATS
       url: http://jmlr.csail.mit.edu/proceedings/papers/v51/lim16.html 
 
 - title: Sorting Network Relaxations for Vector Permutation Problems
-  authors: Cong Han Lim, Stephen J. Wright
+  authors: Cong Han Lim, Stephen Wright
   venue: NIPS 2014
   links:
     - name: ArXiv
