@@ -17,7 +17,7 @@
 
 - title: An Efficient Pruning Algorithm for Robust Isotonic Regression
   authors: Cong Han Lim
-  venue: NIPS 2018
+  venue: NeurIPS 2018
 
 - title: A Distributed Quasi-Newton Algorithm for Empirical Risk Minimization with Nonsmooth Regularization
   authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
@@ -25,11 +25,11 @@
 
 - title: A Note on Extended Formulations for Cardinality-based Sparsity
   authors: Cong Han Lim
-  venue: NIPS Optimization for Machine Learning Workshop 2017
+  venue: NeurIPS Optimization for Machine Learning Workshop 2017
 
 - title: k-Support and Ordered Weighted Sparsity for Overlapping Groups - Hardness and Algorithms
   authors: Cong Han Lim, Stephen Wright
-  venue: NIPS 2017
+  venue: NeurIPS 2017
   
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
   authors: Cong Han Lim, Jeff Linderoth, James Luedtke
@@ -60,7 +60,7 @@
 
 - title: Sorting Network Relaxations for Vector Permutation Problems
   authors: Cong Han Lim, Stephen Wright
-  venue: NIPS 2014
+  venue: NeurIPS 2014
   links:
     - name: ArXiv
       url: http://arxiv.org/abs/1407.6609
@@ -68,7 +68,7 @@
     - name: Optimization Online
       url: http://www.optimization-online.org/DB_HTML/2014/07/4459.html
 
-    #- name: NIPS Poster
+    #- name: NeurIPS Poster
     #  url: temp
 
     #- name: MATLAB code for sorting network formulation
