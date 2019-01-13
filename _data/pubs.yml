@@ -1,7 +1,10 @@
-- title: Parallelizing Subgradient Methods for the Lagrangian Dual in Stochastic Mixed-Integer Programming
+- title: Subgradient Sampling Methods for the Lagrangian Dual in Stochastic Mixed-Integer Programming
   authors: Cong Han Lim, Jeffrey Linderoth, James Luedtke, Stephen Wright
   venue: In submission
   links:
+    - name: Optimization Online
+      url: http://www.optimization-online.org/DB_HTML/2018/12/6963.html
+
     - name: Data
       url: https://limconghan.github.io/smip/
 
@@ -11,7 +14,6 @@
   links:
     - name: ArXiv
       url: http://arxiv.org/abs/1404.7208
-    
     - name: Optimization Online
       url: http://www.optimization-online.org/DB_HTML/2014/04/4329.html
 
@@ -22,14 +24,23 @@
 - title: A Distributed Quasi-Newton Algorithm for Empirical Risk Minimization with Nonsmooth Regularization
   authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
   venue: KDD 2018 / Journal version in preparation
+  links:
+    - name: ArXiv
+      url: http://arxiv.org/abs/1803.01370
 
 - title: A Note on Extended Formulations for Cardinality-based Sparsity
   authors: Cong Han Lim
   venue: NeurIPS Optimization for Machine Learning Workshop 2017
+  links:
+    - name: Workshop
+      url: http://opt-ml.org/papers/OPT2017_paper_33.pdf
 
 - title: k-Support and Ordered Weighted Sparsity for Overlapping Groups - Hardness and Algorithms
   authors: Cong Han Lim, Stephen Wright
   venue: NeurIPS 2017
+  links: 
+    - name: NeurIPS
+      url: https://papers.nips.cc/paper/6632-k-support-and-ordered-weighted-sparsity-for-overlapping-groups-hardness-and-algorithms
   
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
   authors: Cong Han Lim, Jeff Linderoth, James Luedtke
@@ -67,11 +78,3 @@
     
     - name: Optimization Online
       url: http://www.optimization-online.org/DB_HTML/2014/07/4459.html
-
-    #- name: NeurIPS Poster
-    #  url: temp
-
-    #- name: MATLAB code for sorting network formulation
-    #  url: temp
-
-
