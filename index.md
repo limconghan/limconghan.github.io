@@ -29,7 +29,5 @@ Theatre](https://www.musicboxtheatre.com/). **In Madison**, the [UW
 Cinematheque](http://cinema.wisc.edu) has impeccable programming. Madison is
 also home to film theorists David Bordwell and Kristin Thompson, who have
 [one of my favorite film blogs](http://www.davidbordwell.net/blog/). If you want
-**streaming sites** that offer something a little
-different, try [Filmstruck](https://www.filmstruck.com/us/) and
-[Mubi](https://mubi.com/).
-
+a **streaming site** that offers something a little
+different, try [Mubi](https://mubi.com/).
