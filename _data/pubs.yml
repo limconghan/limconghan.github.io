@@ -20,6 +20,9 @@
 - title: An Efficient Pruning Algorithm for Robust Isotonic Regression
   authors: Cong Han Lim
   venue: NeurIPS 2018
+  links:
+    - name: NeurIPS
+      url: https://papers.nips.cc/paper/7306-an-efficient-pruning-algorithm-for-robust-isotonic-regression
 
 - title: A Distributed Quasi-Newton Algorithm for Empirical Risk Minimization with Nonsmooth Regularization
   authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
@@ -27,6 +30,12 @@
   links:
     - name: ArXiv
       url: http://arxiv.org/abs/1803.01370
+
+    - name: Optimization Online
+      url: http://www.optimization-online.org/DB_HTML/2018/03/6500.html
+      
+    - name: KDD
+      url: https://dl.acm.org/citation.cfm?doid=3219819.3220075
 
 - title: A Note on Extended Formulations for Cardinality-based Sparsity
   authors: Cong Han Lim
