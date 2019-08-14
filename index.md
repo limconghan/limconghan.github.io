@@ -2,14 +2,15 @@
 title: Homepage
 ---
 
-I am an ARC-TRIAD postdoc in the School of Industrial and Systems Engineering at
-Georgia Tech working with Shabbir Ahmed. I was previously in the optimization
-group at the Wisconsin Institute for Discovery @ UW-Madison working with
-Jeffrey Linderoth, James Luedtke, and Stephen Wright. 
+I am an AI resident at Uber ATG. I was previously at Georgia Tech ISYE working
+with Shabbir Ahmed, and before that at the Wisconsin Institute for Discovery at
+UW-Madison working with Jeffrey Linderoth, James Luedtke, and Stephen Wright.
 
-My research studies algorithms for machine learning and operations research.
-This includes developing methods for regression problems, large-scale
-stochastic programming, distributed optimization, mixed-integer nonconvex optimization, routing problems, and problems involving permutations.
+My research focuses on algorithms for machine learning and operations research,
+generally with the aim of making hard problems a little more tractable. This
+includes developing methods for regression problems, large-scale stochastic
+programming, distributed optimization, mixed-integer nonconvex optimization,
+and problems involving permutations.
 
 I obtained my PhD in Computer Sciences at UW-Madison, and before that my BSc in
 Mathematics and Computer Science at University of Chicago.
@@ -18,8 +19,8 @@ Mathematics and Computer Science at University of Chicago.
 
 ## Other Stuff
 
-I did two summer internships during my PhD at
-Technicolor Research Bay Area in 2015 and at Facebook in 2012.
+I did two internships in the past at Technicolor R&D (now part of InterDigital)
+and at Facebook.
 
 A good chunk of my free time geeking out over films. 
 **In Chicago**, check out
