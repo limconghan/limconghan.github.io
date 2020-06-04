@@ -1,6 +1,10 @@
+- title: Hierarchical Verification for Robustness Verification
+  authors: Cong Han Lim, Raquel Urtasun, Ersin Yumer
+  venue: ICML 2020
+ 
 - title: Subgradient Sampling Methods for the Lagrangian Dual in Stochastic Mixed-Integer Programming
   authors: Cong Han Lim, Jeffrey Linderoth, James Luedtke, Stephen Wright
-  venue: In submission
+  venue: INFORMS Journal on Optimization (2020)
   links:
     - name: Optimization Online
       url: http://www.optimization-online.org/DB_HTML/2018/12/6963.html
@@ -53,7 +57,7 @@
   
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
   authors: Cong Han Lim, Jeff Linderoth, James Luedtke
-  venue: Mathematical Programming Series B 2017 / IPCO 2016
+  venue: Mathematical Programming (2017) / IPCO 2016
   links:
     - name: IPCO
       url: http://link.springer.com/chapter/10.1007/978-3-319-33461-5_23
