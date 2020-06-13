@@ -28,15 +28,12 @@
     - name: NeurIPS
       url: https://papers.nips.cc/paper/7306-an-efficient-pruning-algorithm-for-robust-isotonic-regression
 
-- title: A Distributed Quasi-Newton Algorithm for Empirical Risk Minimization with Nonsmooth Regularization
+- title: A Distributed Quasi-Newton Algorithm for Primal and Dual Regularized Empirical Risk Minimization
   authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
-  venue: KDD 2018 / Journal version in preparation
+  venue: Journal version in submission / KDD 2018 (shorter version)
   links:
-    - name: ArXiv
-      url: http://arxiv.org/abs/1803.01370
-
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2018/03/6500.html
+    - name: 
+      url: http://www.optimization-online.org/DB_HTML/2019/12/7518.html
       
     - name: KDD
       url: https://dl.acm.org/citation.cfm?doid=3219819.3220075
@@ -77,7 +74,7 @@
 
 - title: Efficient Bregman Projections onto the Permutahedron and Related Polytopes
   authors: Cong Han Lim, Stephen Wright
-  venue: AISTATS 2016 / Journal version in preparation
+  venue: Journal version in preparation / AISTATS 2016
   links:
     - name: AISTATS
       url: http://jmlr.csail.mit.edu/proceedings/papers/v51/lim16.html 
