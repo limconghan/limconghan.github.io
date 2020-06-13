@@ -25,6 +25,6 @@ Cinematheque](http://www.facets.org/cinematheque/), [Gene Siskel Film Center](ht
 **In Madison**, the [UW Cinematheque](http://cinema.wisc.edu) has impeccable programming. Madison is also home to film theorists David Bordwell and Kristin Thompson, who have [one of my favorite film blogs](http://www.davidbordwell.net/blog/). 
 If you want **streaming sites** that offer something a little different, try [Mubi](https://mubi.com/) or [The Criterion Channel](https://www.criterionchannel.com/).
 
-_last movie watched: Giù la testa_
+_last movie watched: Duck, You Sucker! (Giù la testa)_
 
 I am from Singapore. We have great food there.
