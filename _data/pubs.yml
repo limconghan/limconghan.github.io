@@ -5,86 +5,39 @@
 - title: Subgradient Sampling Methods for the Lagrangian Dual in Stochastic Mixed-Integer Programming
   authors: Cong Han Lim, Jeffrey Linderoth, James Luedtke, Stephen Wright
   venue: INFORMS Journal on Optimization (2020)
-  links:
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2018/12/6963.html
-
-    - name: Data
-      url: https://limconghan.github.io/smip/
 
 - title: Validating Sample Average Approximation Solutions with Negatively Dependent Batches
   authors: Jiajie Chen, Cong Han Lim, Peter Qian, Jeffrey Linderoth, Stephen Wright
   venue: In submission
-  links:
-    - name: ArXiv
-      url: http://arxiv.org/abs/1404.7208
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2014/04/4329.html
 
 - title: An Efficient Pruning Algorithm for Robust Isotonic Regression
   authors: Cong Han Lim
   venue: NeurIPS 2018
-  links:
-    - name: NeurIPS
-      url: https://papers.nips.cc/paper/7306-an-efficient-pruning-algorithm-for-robust-isotonic-regression
 
 - title: A Distributed Quasi-Newton Algorithm for Primal and Dual Regularized Empirical Risk Minimization
   authors: Ching-Pei Lee, Cong Han Lim, Stephen Wright
   venue: Journal version in submission / KDD 2018 (shorter version)
-  links:
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2019/12/7518.html
-      
-    - name: KDD
-      url: https://dl.acm.org/citation.cfm?doid=3219819.3220075
 
 - title: A Note on Extended Formulations for Cardinality-based Sparsity
   authors: Cong Han Lim
   venue: NeurIPS Optimization for Machine Learning Workshop 2017
-  links:
-    - name: Workshop
-      url: http://opt-ml.org/papers/OPT2017_paper_33.pdf
 
 - title: k-Support and Ordered Weighted Sparsity for Overlapping Groups - Hardness and Algorithms
   authors: Cong Han Lim, Stephen Wright
   venue: NeurIPS 2017
-  links: 
-    - name: NeurIPS
-      url: https://papers.nips.cc/paper/6632-k-support-and-ordered-weighted-sparsity-for-overlapping-groups-hardness-and-algorithms
   
 - title: Valid Inequalities for Separable Concave Constraints with Indicator Variables
   authors: Cong Han Lim, Jeff Linderoth, James Luedtke
   venue: Mathematical Programming (2017) / IPCO 2016
-  links:
-    - name: IPCO
-      url: http://link.springer.com/chapter/10.1007/978-3-319-33461-5_23
-
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2015/11/5218.html
-    
-    - name: Data
-      url: https://limconghan.github.io/data/concave_instances.zip
   
 - title: A Box-Constrained Approach for Hard Permutation Problems
   authors: Cong Han Lim, Stephen Wright
   venue: ICML 2016
-  links:
-    - name: ICML
-      url: http://jmlr.csail.mit.edu/proceedings/papers/v48/lim16.html
 
 - title: Efficient Bregman Projections onto the Permutahedron and Related Polytopes
   authors: Cong Han Lim, Stephen Wright
   venue: Journal version in preparation / AISTATS 2016
-  links:
-    - name: AISTATS
-      url: http://jmlr.csail.mit.edu/proceedings/papers/v51/lim16.html 
 
 - title: Sorting Network Relaxations for Vector Permutation Problems
   authors: Cong Han Lim, Stephen Wright
   venue: NeurIPS 2014
-  links:
-    - name: ArXiv
-      url: http://arxiv.org/abs/1407.6609
-    
-    - name: Optimization Online
-      url: http://www.optimization-online.org/DB_HTML/2014/07/4459.html

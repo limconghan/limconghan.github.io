@@ -1,11 +1,11 @@
 ---
 title: Homepage
 ---
-_last updated: 07/23/2022_
+_last updated: 02/15/2023_
 
 I am a Member of Research Staff at Voleon.
 I previously did my PhD in Computer Science at UW-Madison working with Jeff Linderoth, Jim Luedtke, and Steve Wright.
-Then spent a couple of years as a postdoc at Wisconsin Institute for Discovery, Georgia Tech ISyE, and Uber ATG.
+Then spent some time as a postdoc at Wisconsin Institute for Discovery, Georgia Tech ISyE, and Uber ATG.
 
 My academic research is in the field of Mathematical Optimization.
 I developed algorithms for machine learning and operations research, generally with the goal of making hard problems more tractable.
@@ -22,6 +22,6 @@ Cinematheque](http://www.facets.org/cinematheque/), [Gene Siskel Film Center](ht
 **In Los Angeles**, check out _everything_. The [Academy Museum](https://www.academymuseum.org/) is not a bad place to start.
 If you want **streaming sites** that offer something a little different, try [Mubi](https://mubi.com/) or [The Criterion Channel](https://www.criterionchannel.com/).
 
-_last movie watched: The Wolf of Wall Street_
+_last movie watched: The Birds_
 
 I am from Singapore. We have great food there.
