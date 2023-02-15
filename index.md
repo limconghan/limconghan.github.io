@@ -4,7 +4,7 @@ title: Homepage
 _last updated: 02/15/2023_
 
 I am a Member of Research Staff at Voleon.
-I previously did my PhD in Computer Science at UW-Madison working with Jeff Linderoth, Jim Luedtke, and Steve Wright.
+I obtained my PhD in Computer Science at UW-Madison working with Jeff Linderoth, Jim Luedtke, and Steve Wright.
 Then spent some time as a postdoc at Wisconsin Institute for Discovery, Georgia Tech ISyE, and Uber ATG.
 
 My academic research is in the field of Mathematical Optimization.
