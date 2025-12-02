@@ -1,0 +1,563 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Vibe Cars — BONK!</title>
+<style>
+  :root{
+    --panel-w: 110px;
+    --canvas-size: min(72vmin, 720px);
+    --bg: #0f1724;
+    --card: #0b1220;
+    --muted: #9aa7b4;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#071027 0%, #08243a 100%);
+    color: #e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -webkit-touch-callout: none; /* prevent long-press menus */
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: none; /* let pointer events handle x 12px rgba(0,0,0,0.5); */
+    touch-action:none;
+  }
+  .thumb.small { width:64px; height:40px; }
+
+  .thumb-label { font-size:11px; color:var(--muted); margin-top:6px; text-align:center; }
+
+  .stage {
+    width: var(--canvas-size);
+    height: var(--canvas-size);
+    min-width: 280px;
+    min-height: 280px;
+    background: linear-gradient(180deg,#071126,#03243a);
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  }
+
+  canvas {
+    background: linear-gradient(180deg, #15202b, #0b1620);
+    border-radius:10px;
+    width:100%;
+    height:100%;
+    display:block;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6) inset;
+    touch-action:none;
+  }
+
+  /* floating drag ghost */
+  .ghost {
+    position:fixed;
+    pointer-events:none;
+    z-index:9999;
+    width:84px;
+    height:56px;
+    transform:translate(-50%,-50%);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:18px;
+    color:#0b1620;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .footer-note{
+    position:fixed;
+    left:18px;
+    bottom:16px;
+    color:var(--muted);
+    font-size:13px;
+    opacity:0.9;
+  }
+
+  @media (max-width:700px){
+    .app { padding:12px; gap:10px; flex-direction:column; }
+    .panel { flex-direction:row; gap:8px; padding:8px; width:auto; border-radius:10px;}
+    .panel h3 { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="panel" id="palette">
+    <h3>Cars</h3>
+    <!-- thumbs injected by JS -->
+  </div>
+
+  <div class="stage">
+    <canvas id="canvas" width="800" height="800"></canvas>
+  </div>
+</div>
+
+<div class="footer-note">Drag a car onto the square. Cars roam — when they collide, BONK!</div>
+
+<script>
+/*
+  Polished Canvas Engine — single-file.
+  - Drag from left thumbnails (pointer events)
+  - Drop on canvas to spawn cars
+  - Cars move randomly, bounce off walls
+  - When two cars collide: both removed + BONK effect
+*/
+
+/* -------------------------
+   Config
+   ------------------------- */
+const CONFIG = {
+  carBaseSize: 50,         // visual size for cars
+  minSpeed: 0.6,
+  maxSpeed: 2.4,
+  bonkDuration: 700,       // ms
+  bonkScale: 2.2,
+  maxCars: 140,            // safety cap
+  frameTimeSmoothing: 0.9, // for stable updates
+};
+
+/* -------------------------
+   Exaggerated human “BONK!” (Version B)
+   ------------------------- */
+const bonkSound = new Audio(
+  "data:audio/wav;base64,UklGRvAqAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACAB4AZGF0YcAqAABeAwD///8A/f39AP7+/gD6+voA+vr6APv7+wD6+voA+fn5APj4+AD39/cA9fX1APLy8gDq6uoA5+fnAOTk5ADh4eEA3t7eAN/f3wDf398A39/fANvb2wDa2toA2dnZANbW1gDR0dEAzMzMANfX1wDa2toA2dnZANra2gDa2toA2NjYANjY2ADZ2dkA29vbAPDw8AD09PQAAAAAAAAAAAAAAAABAAEAAQABAAIAAwAEAAYABwAJAAsADQAPABAAEQASABMAFAAVABYAFwAYABkAGgAbABwAHQAeAB8AIAAhACIAIwAkACUAJgAnACgAKQAqACsALAAtAC4ALwAwADEAMgAzADQANQA2ADcAOAA5ADoAOwA8AD0APgA/AEA="
+);
+bonkSound.volume = 0.95;
+
+/* -------------------------
+   Canvas & resize
+   ------------------------- */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d', { alpha: false });
+
+function resizeCanvasToDisplay() {
+  // make canvas match CSS size while preserving resolution for crispness
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap DPR
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // scale drawing to CSS px
+}
+window.addEventListener('resize', resizeCanvasToDisplay);
+resizeCanvasToDisplay();
+
+/* -------------------------
+   Utility
+   ------------------------- */
+let ID_COUNTER = 1;
+function uid() { return ID_COUNTER++; }
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+
+/* -------------------------
+   Car drawing primitives
+   We'll draw cars procedurally so no external assets needed.
+   ------------------------- */
+function drawCarShape(ctx, x, y, size, angle, color) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  const w = size * 1.05;
+  const h = size * 0.56;
+  // body
+  roundRect(ctx, -w/2, -h/2, w, h, h*0.14);
+  ctx.fillStyle = color;
+  ctx.fill();
+  // windows - a smaller rounded rect
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  roundRect(ctx, -w*0.15, -h*0.45, w*0.4, h*0.5, 4);
+  ctx.fill();
+  // wheels
+  const wheelW = w*0.22;
+  const wheelH = h*0.28;
+  ctx.fillStyle = '#11161a';
+  ctx.beginPath(); ctx.ellipse(-w*0.31, h*0.35, wheelW/2, wheelH/2, 0, 0, 2*Math.PI); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(w*0.31, h*0.35, wheelW/2, wheelH/2, 0, 0, 2*Math.PI); ctx.fill();
+  ctx.restore();
+}
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+/* -------------------------
+   Engine Entities
+   ------------------------- */
+
+class Car {
+  constructor(x,y, size=CONFIG.carBaseSize, color='#ff7b7b'){
+    this.id = uid();
+    this.x = x;
+    this.y = y;
+    // give a slight random direction but normalize speed
+    const angle = rand(0,Math.PI*2);
+    const speed = rand(CONFIG.minSpeed, CONFIG.maxSpeed);
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.size = size;
+    this.color = color;
+    this.angle = Math.atan2(this.vy, this.vx);
+    this.created = performance.now();
+  }
+  step(dt, boundsW, boundsH){
+    // dt in seconds
+    this.x += this.vx * dt * 60; // scale by 60 to make speeds feel frame-rate consistent
+    this.y += this.vy * dt * 60;
+    // slight wandering (random tiny angular jitter)
+    const jitter = 0.02;
+    this.vx += rand(-jitter, jitter) * dt * 50;
+    this.vy += rand(-jitter, jitter) * dt * 50;
+    // clamp speed
+    const sp = Math.hypot(this.vx, this.vy);
+    const spMin = CONFIG.minSpeed;
+    const spMax = CONFIG.maxSpeed;
+    if (sp > spMax) {
+      this.vx = (this.vx / sp) * spMax;
+      this.vy = (this.vy / sp) * spMax;
+    } else if (sp < spMin) {
+      this.vx = (this.vx / sp) * spMin;
+      this.vy = (this.vy / sp) * spMin;
+    }
+    // bounce off bounds (we treat cars as circles for collision with walls)
+    const r = this.size * 0.45;
+    if (this.x - r < 0) { this.x = r; this.vx = Math.abs(this.vx); }
+    if (this.x + r > boundsW) { this.x = boundsW - r; this.vx = -Math.abs(this.vx); }
+    if (this.y - r < 0) { this.y = r; this.vy = Math.abs(this.vy); }
+    if (this.y + r > boundsH) { this.y = boundsH - r; this.vy = -Math.abs(this.vy); }
+    this.angle = Math.atan2(this.vy, this.vx);
+  }
+  draw(ctx){
+    drawCarShape(ctx, this.x, this.y, this.size, this.angle, this.color);
+  }
+  radius(){ return this.size * 0.45; }
+}
+
+class Bonk {
+  constructor(x,y, t){
+    this.x = x; this.y = y;
+    this.start = t;
+    this.duration = CONFIG.bonkDuration;
+  }
+  progress(now){
+    return clamp((now - this.start) / this.duration, 0, 1);
+  }
+  draw(ctx, now){
+    const p = this.progress(now);
+    if (p>=1) return;
+    const ease = 1 - Math.pow(1-p, 3); // ease out
+    const scale = 1 + ease * (CONFIG.bonkScale - 1);
+    const alpha = 1 - p;
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.scale(scale, scale);
+    ctx.globalAlpha = alpha;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = "bold 54px system-ui, -apple-system, 'Segoe UI', Roboto";
+    // shadow glow
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+    ctx.strokeText('BONK', 0, 0);
+    ctx.fillStyle = '#ffd166';
+    ctx.fillText('BONK', 0, 0);
+    ctx.restore();
+  }
+}
+
+/* -------------------------
+   Confetti Particle System (corrected)
+   ------------------------- */
+class Confetti {
+  constructor(x, y, t) {
+    this.x = x;
+    this.y = y;
+    this.start = t;
+    this.life = 650; // ms
+    this.size = rand(3, 6);
+
+    const angle = rand(0, Math.PI * 2);
+    const speed = rand(40, 110);
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+
+    this.spin = rand(-0.25, 0.35);
+    this.rotation = rand(0, Math.PI * 2);
+
+    const colors = ['#ff6b6b', '#4dabf7', '#ffd166', '#69db7c', '#ff9ff3'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  progress(now) {
+    return clamp((now - this.start) / this.life, 0, 1);
+  }
+
+  draw(ctx, dt, now) {
+    const p = this.progress(now);
+    if (p >= 1) return;
+
+    // dt is in seconds
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+
+    // gentle gravity
+    this.vy += 200 * dt;
+
+    this.rotation += this.spin;
+
+    ctx.save();
+    ctx.globalAlpha = 1 - p;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = this.color;
+    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+    ctx.restore();
+  }
+}
+
+/* -------------------------
+   World state
+   ------------------------- */
+const world = {
+  cars: [],
+  bonks: [],
+  confetti: []
+};
+
+/* -------------------------
+   Collision detection (circle-circle)
+   ------------------------- */
+function checkCollisionsAndResolve(){
+  const cars = world.cars;
+  const n = cars.length;
+  if (n < 2) return;
+  // We'll collect ids to remove to avoid mutating while iterating
+  const toRemove = new Set();
+  for (let i=0;i<n;i++){
+    const a = cars[i];
+    if (toRemove.has(a.id)) continue;
+    for (let j=i+1;j<n;j++){
+      const b = cars[j];
+      if (toRemove.has(b.id)) continue;
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      const rr = a.radius() + b.radius();
+      if (dx*dx + dy*dy <= rr*rr) {
+        // collision
+        toRemove.add(a.id);
+        toRemove.add(b.id);
+        const mx = (a.x + b.x)/2;
+        const my = (a.y + b.y)/2;
+
+        // BONK effect
+        world.bonks.push(new Bonk(mx, my, performance.now()));
+
+        // Sound
+        bonkSound.currentTime = 0;
+        bonkSound.play().catch(()=>{});
+
+        // Confetti burst
+        for (let i = 0; i < 28; i++) {
+          world.confetti.push(new Confetti(mx, my, performance.now()));
+        }
+
+        break;
+      }
+    }
+  }
+  if (toRemove.size > 0) {
+    world.cars = world.cars.filter(c => !toRemove.has(c.id));
+  }
+}
+
+/* -------------------------
+   Update + Render Loop
+   ------------------------- */
+let lastTime = performance.now();
+let smoothedDt = 16;
+
+function loop(now){
+  const rawDt = Math.min(now - lastTime, 60); // clamp delta to avoid huge jumps
+  lastTime = now;
+  smoothedDt = CONFIG.frameTimeSmoothing * smoothedDt + (1 - CONFIG.frameTimeSmoothing) * rawDt;
+
+  const dt = smoothedDt / 1000;
+
+  // update cars
+  const boundsW = canvas.clientWidth;
+  const boundsH = canvas.clientHeight;
+  for (let c of world.cars) c.step(dt, boundsW, boundsH);
+
+  // collisions
+  checkCollisionsAndResolve();
+
+  // clear
+  ctx.clearRect(0,0,canvas.width, canvas.height);
+
+  // draw cars
+  for (let c of world.cars) c.draw(ctx);
+
+  // draw bonks and remove expired
+  const nowMs = performance.now();
+  world.bonks = world.bonks.filter(b => {
+    b.draw(ctx, nowMs);
+    return nowMs - b.start < b.duration;
+  });
+
+  // Confetti
+  world.confetti = world.confetti.filter(p => {
+    p.draw(ctx, dt, nowMs);   // dt is already in seconds
+    return nowMs - p.start < p.life;
+  });
+  
+  // small FPS cap via requestAnimationFrame is enough
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* -------------------------
+   Palette / Drag & Drop (pointer events)
+   ------------------------- */
+
+const palette = document.getElementById('palette');
+
+// define some car options (colors / labels)
+const CAR_OPTS = [
+  { label: 'Red', color: '#ff6b6b' },
+  { label: 'Blue', color: '#4dabf7' },
+  { label: 'Green', color: '#69db7c' },
+  { label: 'Pink', color: '#ff8ed6' },
+  { label: 'Orange', color: '#ffb26b' },
+  { label: 'Teal', color: '#2fe6c7' },
+];
+
+function createThumb(opt){
+  const div = document.createElement('div');
+  div.className = 'thumb';
+  div.dataset.color = opt.color;
+  div.title = opt.label;
+  // draw small canvas representation
+  const mini = document.createElement('canvas');
+  mini.width = 160; mini.height = 96;
+  mini.style.width = '84px';
+  mini.style.height = '52px';
+  const mctx = mini.getContext('2d');
+  // simple car draw
+  drawCarShape(mctx, mini.width/2, mini.height/2, 80, 0, opt.color);
+  div.appendChild(mini);
+  const lab = document.createElement('div');
+  lab.className = 'thumb-label';
+  lab.textContent = opt.label;
+  div.appendChild(lab);
+  return div;
+}
+
+// create thumbs
+for (let opt of CAR_OPTS) {
+  const node = createThumb(opt);
+  palette.appendChild(node);
+  // pointer event handlers for dragging
+  node.addEventListener('pointerdown', startPaletteDrag);
+}
+
+/* Drag state */
+let dragging = null;    // { color, pointerId, ghostEl, offsetX, offsetY }
+let lastPointerPos = { x:0, y:0 };
+
+function startPaletteDrag(e){
+  if (e.button && e.button !== 0) return;
+  (e.target.closest) && e.preventDefault();
+  const el = e.currentTarget;
+  const color = el.dataset.color || '#fff';
+  // create ghost element
+  const ghost = document.createElement('div');
+  ghost.className = 'ghost';
+  ghost.style.background = color;
+  ghost.textContent = '🚗';
+  document.body.appendChild(ghost);
+  dragging = {
+    color,
+    pointerId: e.pointerId,
+    ghostEl: ghost,
+  };
+  // capture pointer to the source element so we get events even if it leaves
+  el.setPointerCapture(e.pointerId);
+  lastPointerPos.x = e.clientX;
+  lastPointerPos.y = e.clientY;
+  updateGhostPosition(e.clientX, e.clientY);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
+}
+
+function updateGhostPosition(cx, cy){
+  if (!dragging) return;
+  const g = dragging.ghostEl;
+  g.style.left = cx + 'px';
+  g.style.top = cy + 'px';
+}
+
+function onPointerMove(ev){
+  if (!dragging || ev.pointerId !== dragging.pointerId) return;
+  lastPointerPos.x = ev.clientX; lastPointerPos.y = ev.clientY;
+  updateGhostPosition(ev.clientX, ev.clientY);
+}
+
+function onPointerUp(ev){
+  if (!dragging || ev.pointerId !== dragging.pointerId) return;
+  // find if pointer is over the canvas
+  const rect = canvas.getBoundingClientRect();
+  const cx = ev.clientX, cy = ev.clientY;
+  if (cx >= rect.left && cx <= rect.right && cy >= rect.top && cy <= rect.bottom) {
+    // convert to canvas-local coordinates (CSS pixels)
+    const localX = cx - rect.left;
+    const localY = cy - rect.top;
+    spawnCarAt(localX, localY, dragging.color);
+  }
+  // cleanup
+  dragging.ghostEl.remove();
+  dragging = null;
+  window.removeEventListener('pointermove', onPointerMove);
+  window.removeEventListener('pointerup', onPointerUp);
+  window.removeEventListener('pointercancel', onPointerUp);
+}
+
+/* Tap on canvas to spawn a car (quick add) */
+canvas.addEventListener('pointerdown', (e)=>{
+  // don't interfere with dragging from palette
+  if (dragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  // spawn random color
+  const c = CAR_OPTS[Math.floor(Math.random()*CAR_OPTS.length)].color;
+  spawnCarAt(x,y,c);
+});
+
+/* Spawn car function */
+function spawnCarAt(x,y,color){
+  if (world.cars.length >= CONFIG.maxCars) return;
+  // size is relative to canvas dimension
+  const size = clamp(CONFIG.carBaseSize * (canvas.clientWidth/600), 32, 80);
+  // create at coordinates in CSS pixels
+  const car = new Car(x, y, size, color);
+  world.cars.push(car);
+}
+
+/* Minor: prevent iOS double-tap to zoom etc. */
+document.addEventListener('touchstart', function(){}, {passive:false});
+
+</script>
+</body>
+</html>
+
