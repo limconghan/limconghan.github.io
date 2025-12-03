@@ -161,12 +161,64 @@ const CONFIG = {
 /* -------------------------
    Exaggerated human “BONK!” (Version B)
    ------------------------- */
-const bonkSound = new Audio(
-  "data:audio/wav;base64,UklGRvAqAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACAB4AZGF0YcAqAABeAwD///8A/f39AP7+/gD6+voA+vr6APv7+wD6+voA+fn5APj4+AD39/cA9fX1APLy8gDq6uoA5+fnAOTk5ADh4eEA3t7eAN/f3wDf398A39/fANvb2wDa2toA2dnZANbW1gDR0dEAzMzMANfX1wDa2toA2dnZANra2gDa2toA2NjYANjY2ADZ2dkA29vbAPDw8AD09PQAAAAAAAAAAAAAAAABAAEAAQABAAIAAwAEAAYABwAJAAsADQAPABAAEQASABMAFAAVABYAFwAYABkAGgAbABwAHQAeAB8AIAAhACIAIwAkACUAJgAnACgAKQAqACsALAAtAC4ALwAwADEAMgAzADQANQA2ADcAOAA5ADoAOwA8AD0APgA/AEA="
-);
 
+/* -------------------------
+   Web Audio API Setup for low-latency BONK!
+   ------------------------- */
+let audioContext = null;
+let bonkBuffer = null;
+const base64SoundData = "UklGRvAqAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACAB4AZGF0YcAqAABeAwD///8A/f39AP7+/gD6+voA+vr6APv7+wD6+voA+fn5APj4+AD39/cA9fX1APLy8gDq6uoA5+fnAOTk5ADh4eEA3t7eAN/f3wDf398A39/fANvb2wDa2toA2dnZANbW1gDR0dEAzMzMANfX1wDa2toA2dnZANra2gDa2toA2NjYANjY2ADZ2dkA29vbAPDw8AD09PQAAAAAAAAAAAAAAAABAAEAAQABAAIAAwAEAAYABwAJAAsADQAPABAAEQASABMAFAAVABYAFwAYABkAGgAbABwAHQAeAB8AIAAhACIAIwAkACUAJgAnACgAKQAqACsALAAtAC4ALwAwADEAMgAzADQANQA2ADcAOAA5ADoAOwA8AD0APgA/AEA=";
 
-bonkSound.volume = 0.95;
+// Function to decode and prepare the sound buffer
+async function setupWebAudio() {
+  if (audioContext) return; // Already setup
+
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  // Decode Base64 into an ArrayBuffer
+  const binaryString = atob(base64SoundData);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  // The original data URL includes "data:audio/wav;base64," which is NOT part of the base64 data.
+  // We only use the raw base64 string provided in the previous step.
+
+  try {
+    // Decode the audio data asynchronously
+    bonkBuffer = await audioContext.decodeAudioData(bytes.buffer);
+  } catch (e) {
+    console.error("Error decoding audio data:", e);
+  }
+  // Resume context if needed (critical for iOS)
+  if (audioContext.state === 'suspended') {
+    audioContext.resume().catch(e => console.error("Could not resume AudioContext:", e));
+  }
+}
+
+// Function to play the sound
+function playBonk() {
+  if (!bonkBuffer || !audioContext) return;
+
+  // Create a new buffer source for playback (buffer sources are single-use)
+  const source = audioContext.createBufferSource();
+  source.buffer = bonkBuffer;
+
+  // Create a GainNode for volume control (Web Audio equivalent of bonkSound.volume)
+  const gainNode = audioContext.createGain();
+  gainNode.gain.value = 0.95; // Volume set here
+
+  // Connect the graph: Source -> Gain -> Destination (Speakers)
+  source.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  source.start(0); // Play instantly
+}
+
+// Attach setup to a user event to bypass autoplay restrictions (CRITICAL FOR iOS/Safari)
+document.addEventListener('pointerdown', setupWebAudio, { once: true });
+document.addEventListener('touchstart', setupWebAudio, { once: true });
 
 /* -------------------------
    Canvas & resize
@@ -406,8 +458,7 @@ function checkCollisionsAndResolve(){
         world.bonks.push(new Bonk(mx, my, performance.now()));
 
         // Sound
-        bonkSound.currentTime = 0;
-        bonkSound.play().catch(()=>{});
+        playBonk();
 
         // Confetti burst
         for (let i = 0; i < 28; i++) {
