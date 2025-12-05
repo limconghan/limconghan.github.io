@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
 <title>Vibe Cars — BONK!</title>
 <style>
   :root{
@@ -654,16 +654,29 @@ document.addEventListener('touchstart', function(){}, {passive:false});
 </script>
 
 <script>
-let lastTouch = 0;
-document.addEventListener("touchend", e => {
-  const now = Date.now();
-  if (now - lastTouch < 300) {
-    e.preventDefault(); // block double-tap zoom
-  }
-  lastTouch = now;
-}, { passive: false });
-</script>
+(function() {
+  let lastTouchEnd = 0;
 
-</body>
+  document.addEventListener('touchend', function(e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 350) {
+      e.preventDefault();  // stop double-tap zoom
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
+
+  // block Safari "smart zoom" on double-tap + hold
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchmove', function(e) {
+  if (e.scale !== 1) {
+    e.preventDefault();  // block pinch zoom even if Safari reports scale change late
+  }
+  }, { passive: false });
+
+})();
+</script>
 </html>
 
